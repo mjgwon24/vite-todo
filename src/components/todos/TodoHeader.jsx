@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import Modal from '../ui/Modal';
 import TodoForm from './TodoForm';
 
-const TodoHeader = ({ onAdd, category, onFilter }) => {
+const TodoHeader = ({ onAdd, category, sort, onFilter, onArray }) => {
   
   const [openModal, open] = useState(false);
   
@@ -15,6 +15,20 @@ const TodoHeader = ({ onAdd, category, onFilter }) => {
             className="px-6 py-2 font-semibold text-gray-100 bg-gray-800 border-none rounded cursor-pointer"
             data-cy="add-todo-button">Add Todo
     </button>
+
+    {/*  최신순, 오래된 순 버튼 */}
+    <div className="flex gap-4">
+        <button
+                onClick={() => onArray('NEW')}
+                className={`px-6 py-2 font-semibold text-gray-100 bg-gray-800 border-none rounded cursor-pointer ${sort === 'NEW' && 'bg-gray-600'}`}
+                data-cy="sort-new-button">최신순
+        </button>
+        <button
+                onClick={() => onArray('OLD')}
+                className={`px-6 py-2 font-semibold text-gray-100 bg-gray-800 border-none rounded cursor-pointer ${sort === 'OLD' && 'bg-gray-600'}`}
+                data-cy="sort-old-button">오래된 순
+        </button>
+    </div>
 
     {openModal && createPortal(
       <Modal>

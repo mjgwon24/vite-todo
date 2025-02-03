@@ -32,6 +32,7 @@ function App() {
 
   const [todos, setTodos] = useState(dummyTodos);
   const [selectedCategory, setFilter] = useState('ALL');
+  const [selectedSort, setSort] = useState('NEW');
 
   const addTodoHandler = (title, summary, category) => {
     const newTodo = {
@@ -68,6 +69,16 @@ function App() {
                               todos : todos.filter(todo => todo.category === selectedCategory);
   const filteredTodos = filterTodos();
 
+  // 정렬 후 렌더링
+  const sortTodos = () => {
+    if (selectedSort === 'NEW') {
+      return [...filteredTodos].sort((a, b) => a.addDate < b.addDate ? 1 : -1);
+    } else {
+      return [...filteredTodos].sort((a, b) => a.addDate > b.addDate ? 1 : -1);
+    }
+  }
+  const sortedTodos = sortTodos();
+
   return (
     <>
       <DefaultLayout>
@@ -80,8 +91,8 @@ function App() {
         </header>
 
         <section className='max-w-xl m-4 mx-auto'>
-          <TodoHeader onAdd={addTodoHandler} category={selectedCategory} onFilter={setFilter}/>
-          <TodoBody todos={filteredTodos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler}/>
+          <TodoHeader onAdd={addTodoHandler} category={selectedCategory} sort={selectedSort} onFilter={setFilter} onArray={setSort}/>
+          <TodoBody todos={sortedTodos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler}/>
         </section>
       </DefaultLayout>    
     </>
