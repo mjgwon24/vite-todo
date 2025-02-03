@@ -1,0 +1,73 @@
+Phase0: #0-1. 리액트 프로젝트 생성, Tailwind 설치
+
+	# Vite 빌드툴을 활용하여 프로젝트 생성
+	npm create vite@latest
+	- React
+	- Javascript 사용
+
+	# Tailwind 설치(https://tailwindcss.com/docs/guides/vite)
+
+		# tailwind, postcss, autoprefixer 설치
+		npm install -D tailwindcss postcss autoprefixer
+
+		# tailwind.config.js 파일 생성 명령어
+		npx tailwindcss init -p
+
+		# 나머지는 링크 참조
+
+Phase1: #1-1. 기본 폴더 구조 생성, 할일 관리 UI 작성, 절대경로(@) 추가(vite.config.js)
+
+	# 기본 폴더 구조
+	src/
+		components/ - 기본적인 컴포넌트들을 작성하는 경로
+			todos/ - 할일 관리(특정 도메인)와 관련된 컴포넌트들만 모아둔 경로
+			ui/ - 도메인과 관련 없이 어느 곳에서든 공통적으로 사용할 수 있는 범용적인 UI
+		constants/ - 상수로 관리할 값들, 함수 등을 모아둔 경로
+		laytous/ - 레이아웃 용도의 경로
+		contexts/ - Context 관련 경로
+		utils/ - 유틸 함수
+
+	# 절대경로(@) 추가 옵션은 선택적인 기능
+
+	# 메인페이지 UI만 구현(기능이 동작하지 않음, Non-interactive)
+
+Phase1: #1-2. 할일 조회 기능 구현
+
+전통적인 방식에서는 최상단(App.jsx)에서 데이터(dummyTodos)를 관리,
+props를 활용해서 필요한 컴포넌트들에게 전달해주는 방식
+
+App.jsx
+	TodoBody
+		TodoItem ->>> 
+→ Props drilling(컴포넌트들을 파고 내려간다고해서 지어진 이름)
+
+Phase1: #1-3. 할일 등록 기능 구현
+
+- React Portal을 활용한 Modal 컴포넌트 구현
+구현한 컴포넌트: ui/Modal.jsx
+
+- 할일 등록 처리
+사용자가 모달에 입력한 Title, Summary 값을 받는 처리
+Add 버튼을 클릭했을 때, 
+	입력받은 값들을 App.jsx로 전달
+	App.jsx에 있는 todos 상태를 업데이트
+
+Phase1: #1-4. 할일 수정 기능 구현
+- onAdd를 onAddOrUpdate로 변경
+- 할일 등록/수정 텍스트를 식별자로 하여 폼에 입력된 값 구분
+- 더 좋은 방법으로 로직에 대한 리팩토링 권장
+
+Phase1: #1-5. 할일 제거 기능 구현
+- 선택된 할일 ID를 받아 Array.filter()를 활용하여 구현
+
+Phase1: #1-6. 할일 필터링 기능 구현
+- 할일 카테고리를 필터링하는 과정에서 원본 배열(todos)을 변경하게 될 경우,
+기존의 할일 데이터가 제거되기 때문에 문제가 발생하게 됨
+
+ex. on Progress 카테고리로 필터링 하는 과정에서 To do, Done에 대한 할일 데이터가 원본 배열에서 제거됨
+
+따라서 App.jsx/filterTodos()를 통해 원본 배열은 유지하면서 필터링된 할일 목록만 렌더링되도록 구현
+
+Phase2: useReducer + Context API로 리팩토링
+
+예상 기능추가: 작성일 속성 추가, 작성일별 정렬 기능 추가, 할일목록 개수 반환, 검색, 드래그 정렬(사용자 지정 정렬), 우선순위 속성 추가, 완료 미완료, 상단 고정, 책갈피

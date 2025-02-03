@@ -1,0 +1,8 @@
+/* 기존에 제공된 코드들은 전부 제거 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+    @apply w-full h-full
+}
