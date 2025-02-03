@@ -9,18 +9,21 @@ const dummyTodos = [
     title: 'React 공부',
     summary: 'React를 공부한다.',
     category: 'TODO',
+    addDate: '2025-02-02',
   },
   {
     id: 2,
     title: '점심 먹기',
     summary: '점심을 먹는다.',
     category: 'PROGRESS',
+    addDate: '2025-02-02',
   },
   {
     id: 3,
     title: '커피 마시기',
     summary: '커피를 마신다.',
     category: 'DONE',
+    addDate: '2025-02-02',
   },
   // 새롭게 추가된 할일 데이터
 ]
@@ -35,7 +38,8 @@ function App() {
       id: self.crypto.randomUUID(), // ID 식별용 값
       title,
       summary,
-      category
+      category,
+      addDate: new Date().toISOString().split('T')[0]
     }
 
     const updatedTodos = [...todos, newTodo];
@@ -68,9 +72,10 @@ function App() {
     <>
       <DefaultLayout>
         <header>
-              <h1 className='pt-8 mx-auto text-red-200 max-w-max text-7xl'>
-                <img className='ml-4' src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Thought%20Balloon.png" alt="Thought Balloon" width="75" height="75" />
-                <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Seal.png" alt="Seal" width="75" height="75" />
+              <h1 className='pt-8 mx-auto text-white max-w-max text-7xl'>
+                {/*<img className='ml-4' src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Thought%20Balloon.png" alt="Thought Balloon" width="75" height="75" />*/}
+                {/*<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Seal.png" alt="Seal" width="75" height="75" />*/}
+                Todos
               </h1>
         </header>
 
