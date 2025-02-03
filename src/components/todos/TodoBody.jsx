@@ -11,9 +11,12 @@ const TodoBody = ({ todos, onUpdate, onDelete }) => {
   />)
   
   return (
-    <ul className='px-0 my-8'>
-        {todoList}
-    </ul>
+      <>
+        <p className='text-lg text-gray-600'>할일 {todos.length}개</p>
+        <ul className='px-0 my-8'>
+          {todoList}
+        </ul>
+      </>
   )
 }
 export default TodoBody
