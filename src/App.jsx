@@ -29,6 +29,7 @@ function App() {
 
   const [todos, setTodos] = useState(dummyTodos);
   const [selectedCategory, setFilter] = useState('ALL');
+  const [text, setText] = useState('');
 
   const addTodoHandler = (title, summary, category) => {
     const newTodo = {
@@ -64,6 +65,10 @@ function App() {
                               todos : todos.filter(todo => todo.category === selectedCategory);
   const filteredTodos = filterTodos();
 
+  // 검색 결과 렌더링 (아무런 검색어가 없을 경우 전체 할일 목록을 반환)
+  const searchTodos = text ? filteredTodos.filter(todo => todo.title.includes(text)) : filteredTodos;
+
+
   return (
     <>
       <DefaultLayout>
@@ -75,8 +80,8 @@ function App() {
         </header>
 
         <section className='max-w-xl m-4 mx-auto'>
-          <TodoHeader onAdd={addTodoHandler} category={selectedCategory} onFilter={setFilter}/>
-          <TodoBody todos={filteredTodos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler}/>
+          <TodoHeader onAdd={addTodoHandler} category={selectedCategory} onFilter={setFilter} onSearch={setText}/>
+          <TodoBody todos={searchTodos} onUpdate={updateTodoHandler} onDelete={deleteTodoHandler}/>
         </section>
       </DefaultLayout>    
     </>
